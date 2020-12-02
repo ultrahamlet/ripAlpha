@@ -1,6 +1,3 @@
-// savePng.cpp : コンソール アプリケーションのエントリ ポイントを定義します。
-//
-
 #include "stdafx.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,7 +12,7 @@
 
 
 void PngReadFunc(png_struct *pPng, png_bytep buf, png_size_t size){
-	/*ただのバイト列なのに・・・*/
+
 	unsigned char** p = (unsigned char**)png_get_io_ptr(pPng);
 	memcpy(buf, *p, size);
 	*p += (int)size;
@@ -34,13 +31,13 @@ int loadPngFile(char* argv1)
 	fread(FileImage, fsize, 1, fp);
 	
 	if(!png_check_sig(FileImage, fsize))
-		return 0; // pngでない！
+		return 0; // not png
 	
 	png_struct *pPng;
 	png_info *pInfo;
 
 		if(!(pPng = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL)))
-		return 0; // エラー
+		return 0; // error
 	if(!(pInfo = png_create_info_struct(pPng)))
 		return 0;
 	ktPngReadStructReleaser pngreleaser(pPng, pInfo);
@@ -106,7 +103,7 @@ int loadPngFile(char* argv1)
 	ktPngWriteStructReleaser pngwritereleaser(png_ptr, info_ptr);
 
 	if (setjmp(png_jmpbuf(png_ptr))){
-		// エラーの時ここに来る。
+		// when error 
 		//SelectObject(hDC, hOldBmp);
 		//DeleteDC(hDC);
 		return 0;
@@ -125,7 +122,7 @@ int loadPngFile(char* argv1)
 	sig_bit.alpha = 0;
 	png_set_sBIT(png_ptr, info_ptr, &sig_bit);
 
-	// PNGに書き込まれるコメント
+	// comment writing to png
 	png_text text_ptr[1];
 	text_ptr[0].key = "Description";
 	text_ptr[0].text = "ktcDIB::Save() Data";
@@ -170,7 +167,7 @@ int _tmain(int argc, _TCHAR* argv[])
  
 {
 	char  c[100];
-	//TCHAR型配列をchar型配列に変換
+	//TCHAR->char
 	WideCharToMultiByte(CP_ACP, 0, argv[1], -1, c, sizeof(c), NULL, NULL);
 	loadPngFile(c);
 	return 0;
