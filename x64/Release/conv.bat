@@ -1,8 +1,8 @@
 #
-savePng posY.png
-savePng negY.png
-savePng posX.png
-savePng negX.png
-savePng posZ.png
-savePng negZ.png
+ripAlpha posY.png
+ripAlpha negY.png
+ripAlpha posX.png
+ripAlpha negX.png
+ripAlpha posZ.png
+ripAlpha negZ.png
 
