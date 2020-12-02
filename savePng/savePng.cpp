@@ -10,7 +10,6 @@
 #define int_p_NULL (int*)NULL
 
 
-
 void PngReadFunc(png_struct *pPng, png_bytep buf, png_size_t size){
 
 	unsigned char** p = (unsigned char**)png_get_io_ptr(pPng);
@@ -80,10 +79,10 @@ int loadPngFile(char* argv1)
 	//printf("%d %d %d %d\n",*(BmpBuffer+4), *(BmpBuffer+5),*(BmpBuffer+6),*(BmpBuffer+7));
 	//printf("%d %d %d %d\n",*(BmpBuffer+8), *(BmpBuffer+9),*(BmpBuffer+10),*(BmpBuffer+11));
 	free(Lines);
-	for (int i = 0; i < (int)PngWidth * (int)PngHeight * 4; i+=4){
+	//for (int i = 0; i < (int)PngWidth * (int)PngHeight * 4; i+=4){
         //if ((i % 5) == 0) *(BmpBuffer+i) = 128;
 		//*(BmpBuffer + i + 3) = 120;
-	}
+	//}
 	// -------------------------------------------------------------
 	char buf[256];
 	sprintf(buf, "out/%s", argv1);
